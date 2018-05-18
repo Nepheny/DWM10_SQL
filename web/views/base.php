@@ -1,5 +1,5 @@
 <?php
-    include('controllers/user.ctrl.php');
+    include_once('controllers/user.ctrl.php');
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +26,7 @@
             <?php else: ?>
                 <div>Welcome <?= $_SESSION['user']['username'] ?> !</div>
                 <a href="?action=restart">Logoff</a>
-                <?php include_once('posts.php'); ?>
+                <?php include_once('views/templates/posts.tmpl.php'); ?>
             <?php endif; ?>
         </main>
     </body>

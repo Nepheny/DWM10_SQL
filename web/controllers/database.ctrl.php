@@ -48,21 +48,25 @@
         return $post;
     }
 
-    function updatePost($db, $id) {
+    function updatePost($db, $title, $author, $category, $content, $id) {
         $query = $db->prepare("UPDATE posts SET title=?, author=?, category=?, content=? WHERE id=?");
-        $query->bind_param("sssss", $_POST['title'], $_POST['author'], $_POST['category'], $_POST['content'], $id);
+        $query->bind_param("sssss", $title, $author, $category, $content, $id);
         $query->execute();
     }
 
-    function createPost($db) {
-        $query = $db->prepare("INSERT INTO posts (id, title, content, author, category, created_at) VALUES (NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
-        $query->bind_param("ssss", $_POST['title'], $_POST['author'], $_POST['category'], $_POST['content']);
+    function createPost($db, $title, $author, $category, $content) {
+        $query = $db->prepare("INSERT INTO posts (id, title, author, category, content, created_at) VALUES (NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
+        $query->bind_param("ssss", $title, $author, $category, $content);
         $query->execute();
     }
 
-    function createUser($db) {
+    function createUser($db, $username, $email, $password1, $password2) {
+        if($password1 != $password2) {
+            return 'invalidPassword';
+        }
+        $pwd = md5($password1);
         $query = $db->prepare("INSERT INTO users (id, username, email, password) VALUES (NULL, ?, ?, ?)");
-        var_dump($query);
-        $query->bind_param("sss", $_POST['username'], $_POST['email'], $_POST['password']);
-        $query->execute();
+        $query->bind_param("sss", $username, $email, $pwd);
+        $result = $query->execute();
+        return $result;
     }

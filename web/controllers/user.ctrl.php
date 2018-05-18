@@ -9,13 +9,14 @@
     }
 
     if(isset($_GET['action']) && $_GET['action'] == 'new-user') {
-        include('user-create.php');
+        include('views/templates/user-create.tmpl.php');
     }
 
     if(isset($_GET['action']) && $_GET['action'] == 'do-new-user') {
-        createUser($db);
+        $result = createUser($db, $_POST['username'], $_POST['email'], $_POST['password1'], $_POST['password2']);
+        include('views/templates/user-create.tmpl.php');
     }
 
     if(isset($_GET['action']) && $_GET['action'] == 'connect') {
-        include('user-login.php');
+        include('views/templates/user-login.tmpl.php');
     }

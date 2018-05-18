@@ -1,8 +1,9 @@
 <?php
-    include('controllers/posts.ctrl.php');
+    include_once('controllers/posts.ctrl.php');
 ?>
+<h2>Posts</h2>
+<a href="?action=new-post">New post</a>
 <ul>
-    <li><a href="?action=new-post">New post</a></li>
     <?php foreach (getAllPosts($db) as $post): ?>
         <li>
             <a href="?action=read&id=<?= $post['id'] ?>"><?= $post['title'] ?></a>,  (<?= $post['category'] ?>)
